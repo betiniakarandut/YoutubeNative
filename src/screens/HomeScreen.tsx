@@ -1,29 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+// src/screens/HomeScreen.tsx
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, StyleSheet } from 'react-native';
+import VideoItem from '../components/VideoItem';
+import { getVideos } from '../api/video';
 
-import { DataStore } from "aws-amplify";
-import { Video } from "../src/models";
-
-import VideoListItem from "../components/video/VideoListItem";
-
-const HomeScreen = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
+const HomeScreen: React.FC = ({ navigation }) => {
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    // fetch videos
-    DataStore.query(Video).then(setVideos);
+    const fetchVideos = async () => {
+      const data = await getVideos();
+      setVideos(data);
+    };
+    fetchVideos();
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={videos}
-        renderItem={({ item }) => <VideoListItem video={item} />}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <VideoItem
+            video={item}
+            onPress={() => navigation.navigate('VideoPlayback', { videoId: item.id })}
+          />
+        )}
       />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
 
 export default HomeScreen;
