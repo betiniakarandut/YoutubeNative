@@ -1,31 +1,23 @@
 // src/screens/HomeScreen.tsx
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
-import VideoItem from '../components/VideoItem';
-import { getVideos } from '../api/video';
 
-const HomeScreen: React.FC = ({ navigation }) => {
-  const [videos, setVideos] = useState([]);
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { HomeStackParamList } from '../types/navigation';
 
-  useEffect(() => {
-    const fetchVideos = async () => {
-      const data = await getVideos();
-      setVideos(data);
-    };
-    fetchVideos();
-  }, []);
+// Define the type for the navigation prop
+type HomeScreenNavigationProp = StackNavigationProp<HomeStackParamList, 'Home'>;
+
+const HomeScreen = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={videos}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <VideoItem
-            video={item}
-            onPress={() => navigation.navigate('VideoPlayback', { videoId: item.id })}
-          />
-        )}
+      <Text style={styles.title}>Home Screen</Text>
+      <Button
+        title="Go to Video Details"
+        onPress={() => navigation.navigate('VideoDetails', { videoId: '123' })}
       />
     </View>
   );
@@ -34,7 +26,12 @@ const HomeScreen: React.FC = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
   },
 });
 
