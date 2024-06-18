@@ -1,46 +1,17 @@
-YouTubeClone/
-├── android/
-├── ios/
-├── src/
-│   ├── assets/
-│   │   ├── fonts/
-│   │   ├── images/
-│   │   └── videos/
-│   ├── components/
-│   │   ├── common/
-│   │   │   ├── Button.js
-│   │   │   ├── Header.js
-│   │   │   └── Loader.js
-│   │   ├── video/
-│   │   │   ├── VideoItem.js
-│   │   │   ├── VideoList.js
-│   │   │   └── VideoPlayer.js
-│   │   ├── user/
-│   │   │   ├── SignIn.js
-│   │   │   ├── SignUp.js
-│   │   │   └── UserProfile.js
-│   ├── config/
-│   │   ├── api.js
-│   │   └── config.js
-│   ├── navigation/
-│   │   ├── AppNavigator.js
-│   │   ├── AuthNavigator.js
-│   │   └── MainNavigator.js
-│   ├── screens/
-│   │   ├── HomeScreen.js
-│   │   ├── VideoScreen.js
-│   │   ├── SearchScreen.js
-│   │   ├── UploadScreen.js
-│   │   ├── SignInScreen.js
-│   │   ├── SignUpScreen.js
-│   └── utils/
-│       ├── helpers.js
-│       ├── hooks.js
-│       └── validations.js
-├── .gitignore
-├── App.js
-├── app.json
-├── babel.config.js
-├── index.js
-├── metro.config.js
-└── package.json
+/YouTubeClone
+  /src
+    /api
+      apiClient.ts
+      user.ts
+      video.ts
+    /components
+      VideoItem.tsx
+      VideoPlayer.tsx
+    /screens
+      HomeScreen.tsx
+      SignInScreen.tsx
+      SignUpScreen.tsx
+      VideoPlaybackScreen.tsx
+    /navigation
+      AppNavigator.tsx
+  App.tsx
