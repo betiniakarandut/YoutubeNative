@@ -25,10 +25,10 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View>
-      <Text>Home Screen</Text>
+      <Text>Home</Text>
       <FlatList
         data={videos}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => <Text>{item.title}</Text>}
       />
     </View>

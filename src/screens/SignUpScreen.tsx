@@ -1,5 +1,3 @@
-// src/screens/SignUpScreen.tsx
-
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
@@ -20,7 +18,7 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
       onSubmit={async (values) => {
         try {
           const response = await signUp(values.username, values.email, values.phone, values.password);
-          navigation.navigate('SignIn');
+          navigation.navigate('OtpVerifier', { email: values.email });
         } catch (error) {
           console.error('Error signing up:', error);
         }
