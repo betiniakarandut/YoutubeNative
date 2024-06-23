@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 export type AuthStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
-  OtpVerifier: { email: string };
+  OtpVerifier: { userId: string };
 };
 
 export type HomeStackParamList = {
