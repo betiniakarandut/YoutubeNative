@@ -8,7 +8,7 @@ import { SignUpScreenProps } from '../types/navigation';
 const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
   return (
     <Formik
-      initialValues={{ username: '', email: '', phone: '', password: '' }}
+      initialValues={{ username: '', email: '', phone: '', password: '', userId: '' }}
       validationSchema={Yup.object({
         username: Yup.string().required('Required'),
         email: Yup.string().email('Invalid email').required('Required'),
@@ -18,7 +18,10 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ navigation }) => {
       onSubmit={async (values) => {
         try {
           const response = await signUp(values.username, values.email, values.phone, values.password);
-          navigation.navigate('OtpVerifier', { email: values.email });
+          console.log(response.data);
+          const userId = response.data.data.userId; 
+          values.userId = userId
+          navigation.navigate('OtpVerifier', { userId });
         } catch (error) {
           console.error('Error signing up:', error);
         }
