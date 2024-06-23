@@ -1,38 +1,31 @@
-// src/screens/VideoDetailsScreen.tsx
-
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import { HomeStackParamList } from '../types/navigation';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-// Define the type for the route prop
-type VideoDetailsScreenRouteProp = RouteProp<HomeStackParamList, 'VideoDetails'>;
+type RootStackParamList = {
+  Home: undefined;
+  Search: undefined;
+  Profile: undefined;
+  VideoDetails: { videoId: string };
+};
+
+type VideoDetailsScreenRouteProp = RouteProp<RootStackParamList, 'VideoDetails'>;
+type VideoDetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'VideoDetails'>;
 
 type Props = {
   route: VideoDetailsScreenRouteProp;
+  navigation: VideoDetailsScreenNavigationProp;
 };
 
-const VideoDetailsScreen = ({ route }: Props) => {
+const VideoDetailsScreen: React.FC<Props> = ({ route }) => {
   const { videoId } = route.params;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Video Details Screen</Text>
-      <Text>Video ID: {videoId}</Text>
+    <View>
+      <Text>Video Details for Video ID: {videoId}</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-  },
-});
 
 export default VideoDetailsScreen;
