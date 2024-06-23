@@ -6,18 +6,18 @@ import { verifyOTP } from '../api/user';
 import { OtpVerifierScreenProps } from '../types/navigation';
 
 const OtpVerifierScreen: React.FC<OtpVerifierScreenProps> = ({ navigation, route }) => {
-  const { email } = route.params;
+  const { userId } = route.params;
 
   return (
     <Formik
-      initialValues={{ email: email, otp: '' }}
+      initialValues={{ userId: userId, otp: '' }}
       validationSchema={Yup.object({
-        email: Yup.string().email('Invalid email').required('Required'),
+        userId: Yup.string().required('Required'),
         otp: Yup.string().required('Required'),
       })}
       onSubmit={async (values) => {
         try {
-          await verifyOTP(values.email, values.otp);
+          await verifyOTP(values.userId, values.otp);
           navigation.navigate('SignIn');
         } catch (error) {
           console.error('Error verifying OTP:', error);
@@ -26,11 +26,11 @@ const OtpVerifierScreen: React.FC<OtpVerifierScreenProps> = ({ navigation, route
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
         <View style={styles.container}>
-          <Text>Email</Text>
+          <Text>User ID</Text>
           <TextInput
-            onChangeText={handleChange('email')}
-            onBlur={handleBlur('email')}
-            value={values.email}
+            onChangeText={handleChange('userId')}
+            onBlur={handleBlur('userId')}
+            value={values.userId}
             style={styles.input}
           />
           <Text>OTP</Text>
