@@ -30,10 +30,15 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
       onSubmit={async (values) => {
         try {
           const response = await signIn(values.email, values.password);
-          const token = response.data.token;
-          await AsyncStorage.setItem('token', token);
-          setAuthToken(token);
-          navigation.navigate('Home');
+          console.log('Full response:', response);
+          const token = response?.data?.token;
+          if (token) {
+            await AsyncStorage.setItem('token', token);
+            setAuthToken(token);
+            navigation.navigate('Home');
+          } else {
+            console.error('Token is undefined');
+          }
         } catch (error) {
           console.error('Error signing in:', error);
         }
