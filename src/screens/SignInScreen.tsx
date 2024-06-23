@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { signIn } from '../api/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setAuthToken } from '../api/apiClient';
 import { SignInScreenProps } from '../types/navigation';
 
 const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
+
+  useEffect(() => {
+    const loadToken = async () => {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        setAuthToken(token);
+      }
+    };
+
+    loadToken();
+  }, []);
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -17,7 +30,9 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
       onSubmit={async (values) => {
         try {
           const response = await signIn(values.email, values.password);
-          await AsyncStorage.setItem('token', response.data.token);
+          const token = response.data.token;
+          await AsyncStorage.setItem('token', token);
+          setAuthToken(token);
           navigation.navigate('Home');
         } catch (error) {
           console.error('Error signing in:', error);

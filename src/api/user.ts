@@ -1,4 +1,3 @@
-// api/auth.ts
 import apiClient from './apiClient';
 
 export const signIn = async (email: string, password: string) => {
