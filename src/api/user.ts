@@ -10,7 +10,7 @@ export const signUp = async (username: string, email: string, phone: string, pas
   return response;
 };
 
-export const verifyOTP = async (email: string, otp: string) => {
-  const response = await apiClient.post('/user/verifyotp', { email, otp });
+export const verifyOTP = async (userId: string, otp: string) => {
+  const response = await apiClient.post('/user/verifyotp', { userId, otp });
   return response;
 };
